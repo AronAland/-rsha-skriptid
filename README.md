@@ -26,7 +26,7 @@ chmod +x mysql_paigaldamine.sh
 sh mysql_paigaldamine.sh
 ````
 ## Wordpressi paigaldamine ja seadistamine
-Wordpressi paigaldusskript kontrollib kas masinal on juba kõik vajalikud teenused paigaldatud, et Wordpressi paigaldada. Vajalikkude teenuste puudumisel paigaldab need ning seejärel paigaldab Wordpressi, et hiljem ainult läbi brauseri seadistus lõpetada.
+Wordpressi paigaldusskript kontrollib kas masinal on juba kõik vajalikud teenused paigaldatud, et Wordpressi paigaldada. Vajalikkude teenuste puudumisel paigaldab need ning seejärel paigaldab Wordpressi, luues ka uue Apache konfiguratsiooni Wordpressi jaoks. Hiljem tuleb läbi brauseri seadistus lõpetada.
 
 ## Paigaldusskripti käivitamine
 ````
