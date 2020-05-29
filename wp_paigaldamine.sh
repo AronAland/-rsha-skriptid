@@ -39,15 +39,15 @@ if [ $mysql_olemas -eq 0 ]; then
 	echo "MySQL on paigaldatud!"
 	touch $HOME/.my.cnf
 	echo "[client]"  >> $HOME/.my.cnf
-	echo "host = lcoalhost" >> $HOME/.my.cnf
+	echo "host = localhost" >> $HOME/.my.cnf
 	echo "user = root" >> $HOME/.my.cnf
 	echo "password = qwerty" >> $HOME/.my.cnf
-        mysql <<-EOF
+        mysql <<EOF
         	CREATE DATABASE wordpress;
         	CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'qwerty';
         	GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';
         	FLUSH PRIVILEGES;
-        EOF
+EOF
 elif [ $mysql_olemas -eq 1 ]; then
 	echo "MySQL on juba paigaldatud!"
 	mysql <<-EOF
@@ -55,7 +55,7 @@ elif [ $mysql_olemas -eq 1 ]; then
 		CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'qwerty';
 		GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';
 		FLUSH PRIVILEGES;
-	EOF
+EOF
 fi
 
 # mysql lõpp
@@ -73,10 +73,15 @@ sed -i 's/username_here/wordpressuser/g' wordpress/wp-config.php
 sed -i 's/password_here/qwerty/g' wordpress/wp-config.php
 cp -a /tmp/wordpress/. /var/www/wordpress
 rm -rf /etc/apache2/sites-enabled/wordpress.conf
+rm -rf /etc/apache2/sites-enabled/000-default.conf
 touch /etc/apache2/sites-enabled/wordpress.conf
-echo "<Directory /var/www/wordpress/>" >> /etc/apache2/sites-available/wordpress.conf
-echo "AllowOverride All" >> /etc/apache2/sites-available/wordpress.conf
-echo "</Directory>" >> /etc/apache2/sites-available/wordpress.conf
+echo "<VirtualHost *:80>" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "ServerName wordpress" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "DocumentRoot /var/www/wordpress" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "<Directory /var/www/wordpress/>" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "AllowOverride All" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "</Directory>" >> /etc/apache2/sites-enabled/wordpress.conf
+echo "</VirtualHost>" >> /etc/apache2/sites-enabled/wordpress.conf
 a2enmod rewrite
 apache2ctl configtest
 systemctl restart apache2
