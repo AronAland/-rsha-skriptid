@@ -35,4 +35,4 @@ sh wp_paigaldamine.sh
 ````
 
 ## Wordpressi seadistamine brauseris
-![Image of Wordpress](https://imgur.com/YwYQIf6)
+![Image of Wordpress](https://i.imgur.com/YwYQIf6.png)
