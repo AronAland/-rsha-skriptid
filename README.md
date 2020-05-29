@@ -33,3 +33,6 @@ Wordpressi paigaldusskript kontrollib kas masinal on juba kõik vajalikud teenus
 chmod +x wp_paigaldamine.sh
 sh wp_paigaldamine.sh
 ````
+
+## Wordpressi seadistamine brauseris
+![Image of Wordpress](https://imgur.com/YwYQIf6)
